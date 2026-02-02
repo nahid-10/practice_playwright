@@ -1,8 +1,12 @@
 import pytest
 
 @pytest.fixture
-def setup():
-    print("This is setup")
+def fake_db():
+    db={"users":["admin1","admin2"]}
+    yield db
+    db.clear()
     
-def test_setup(setup):
-    print("This is post setup")
+    
+def test_db(fake_db):
+    assert "admin1" in fake_db["users"]
+    
